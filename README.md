@@ -12,7 +12,7 @@ PlatformIO firmware for ESP32 DevKit V1 with IR + HC-SR04 sensing, L298N motor o
 AP SSID: `ESP32-Robot`; password: `robot1234`; usually `192.168.4.1`. Change credentials before using on a shared network. STA credentials can be set using PATCH `/api/config` (`sta_ssid`, `sta_password`).
 
 ## Dashboard and API
-`/`, GET `/api/status`, GET `/api/health`, GET/PATCH `/api/config`, POST `/api/config/save`, POST `/api/config/reset`, POST `/api/motor/start`, POST `/api/motor/stop`, GET `/api/logs`, GET `/api/info`, GET `/api/metrics`, GET `/api/events`, GET `/api/diagnostics`, POST `/api/profile?name=safe|normal|fast`.
+`/`, GET `/api/status`, GET `/api/health`, GET/PATCH `/api/config`, POST `/api/config/save`, POST `/api/config/reset`, POST `/api/motor/start`, POST `/api/motor/stop`, GET `/api/logs`, GET `/api/info`.
 
 ## CLI
 `help`, `status`, `health`, `config show|save|load|reset`, `mode ir|ultrasonic|both|constant`, `log level error|status|info|debug|trace`, `set KEY VALUE`, `motor start|stop`.
@@ -25,12 +25,3 @@ IR VCC 3V3 (only if module supports 3.3V), GND, OUT GPIO27. HC-SR04 VCC 5V, GND,
 
 ## Safety
 API currently has no authentication; use only on a trusted network. Never connect HC-SR04 ECHO directly to ESP32. Test without motor load before enabling the motor.
-
-## Software-only dashboard additions
-- Sensor diagnostics: ultrasonic timeout counter and heuristic IR no-transition warning (not proof of a failed sensor).
-- Operating profiles: `safe`, `normal`, and `fast`; presets apply in RAM. Use Configuration → Save to flash to persist them.
-- Runtime metrics: obstacle event count, ultrasonic timeout count, IR transitions, motor runtime.
-- Event timeline: recent obstacle/path and motor events; stored in RAM and cleared on reboot.
-- Diagnostics export: download a JSON snapshot containing status, configuration, metrics, recent events, and logs.
-
-New API routes: `GET /api/metrics`, `GET /api/events`, `GET /api/diagnostics`, `POST /api/profile?name=safe|normal|fast`.
